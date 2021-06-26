@@ -5,14 +5,20 @@ const hasMap = [
     { logo: 'B', url: 'https://www.bilibili.com' }
 ]
 
+const simplifyUrl = (url) => {
+    return url.replace('https://', '')
+        .replace('http://', '')
+        .replace('www.', '')
+        .replace(/\/.*/, '') // 删除 / 开头的内容
+}
 
 hasMap.forEach((node) => {
-
+    $siteList.find('li:not(.last)').remove()
     const $li = $(`<li>  
     <a href="${node.url}">
         <div class="site">
             <div class="logo">${node.logo}</div>
-            <div class="link">${node.url}</div>
+            <div class="link">${simplifyUrl(node.url)}</div>
         </div>
     </a>
     </li>`).insertBefore($lastLi)
@@ -27,7 +33,7 @@ $('.addButton').on('click', () => {
     }
 
     hasMap.push({
-        logo: 'url[0]',
+        logo: 'simplifyUrl(url)[0]',
         url: url
     })
 
