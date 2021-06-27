@@ -1,6 +1,8 @@
 const $siteList = $('.siteList')
 const $lastLi = $siteList.find('li.last')//在sitelist里面找到last
-const hasMap = [
+const x = localStorage.getItem('x')
+const xObject = JSON.parse(x)
+const hashMap = xObject || [
     { logo: 'A', url: 'https://www.acfun.cn' },
     { logo: 'B', url: 'https://www.bilibili.com' }
 ]
@@ -48,3 +50,9 @@ $('.addButton').on('click', () => {
     </li>`).insertBefore($lastLi)
 })
 //点网站 进去回来就没了  怎么办
+
+
+window.onbeforeunload = () => {
+    const string = JSON.stringify(hashMap)
+    localStorage.setItem('x', string)
+}
