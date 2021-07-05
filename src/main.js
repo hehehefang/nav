@@ -28,19 +28,20 @@ hasMap.forEach((node) => {
 
 
 $('.addButton').on('click', () => {
-    let url = window.prompt('请输入url')
+    let url = window.prompt('请问你要添加的网址是什么？')
     if (url.indexOf('http') !== 0) {
         url = 'https://' + url
-        console.log(url)
     }
-
-    hasMap.push({
-        logo: 'simplifyUrl(url)[0]',
+    console.log(url)
+    hashMap.push({
+        logo: simplifyUrl(url)[0].toUpperCase(),
         url: url
     })
+    render()
+})
 
-    //把li 插到  lastLi  前面
-    const $li = $(`<li>  
+//把li 插到  lastLi  前面
+const $li = $(`<li>  
     <a href="${url}">
         <div class="site">
             <div class="logo">${url[0]}</div>
@@ -56,3 +57,12 @@ window.onbeforeunload = () => {
     const string = JSON.stringify(hashMap)
     localStorage.setItem('x', string)
 }
+
+$(document).on('keypress', (e) => {
+    const { key } = e
+    for (let i = 0; i < hashMap.length; i++) {
+        if (hashMap[i].logo.toLowerCase() === key) {
+            window.open(hashMap[i].url)
+        }
+    }
+})
